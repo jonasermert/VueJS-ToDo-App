@@ -35,11 +35,8 @@ export default {
     },
     removeToDo() {
       this.$emit("removetodo-index", this.todoindex);
-    }
-
-
-
-  }
+    },
+  },
 }
 </script>
 
