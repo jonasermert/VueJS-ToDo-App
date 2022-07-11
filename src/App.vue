@@ -21,8 +21,6 @@
       <ToDo :todoprop="todos[2].todo"/>
       -->
     </div>
-
-
   </div>
   
 </template>
@@ -35,26 +33,42 @@ export default {
   data() {
     return {
       newToDo: "",
+      /*
       todos: [
         {todo:"programming", done: false},
         {todo:"shopping", done: false},
         {todo:"sport", done: true},
       ],
+      */
     }
   },
   methods: {
     toggleDone(index) {
       this.todos[index].done = !this.todos[index].done;
+      this.storeToDo();
     },
     deleteToDo(index) {
       this.todos.splice(index, 1);
+      this.storeToDo();
     },
     addToDo(){
       if(this.newToDo.trim() === "") {
         return;
       }
       this.todos.push({todo:this.newToDo, done: false});
+      this.storeToDo();
     },
+    storeToDo(){
+      localStorage.setItem("todos", JSON.stringify(this.todos));
+    }
+  },
+  mounted() {
+    let data =localStorage.getItem("todos")
+    if(data !== "" && data !== null) {
+      this.todos = JSON.parse(data);
+    } else {
+      this.todos = [];
+    }
   },
   computed: {
     opentodos() {
